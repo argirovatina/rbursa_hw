@@ -1,19 +1,15 @@
 require 'pry'
-	x, y, x1, y1 = ARGV
-	if x == "10" && y == "11" && x1 == "17" && y1 == "13"
-		puts "Точка найдена!"
-	else
-		puts "Близко, но нет"
+require_relative '/Users/tina/rbursa_hw/ITCompany_classes/customer.rb'
+require_relative '/Users/tina/rbursa_hw/ITCompany_classes/order.rb'
+require_relative '/Users/tina/rbursa_hw/ITCompany_classes/programmer.rb'
+require_relative '/Users/tina/rbursa_hw/ITCompany_classes/manager.rb'
+
+class ItCompanySimulator
+	def self.start
+		customer = Customer.new({requirements: 100, remuneration: 100, competence: 100, adequacy: 100, manager: manager})
+		order = Order.new({complexity: 100, clear: 100, deadline: 100, customer: customer, manager: manager})
+		manager = Manager.new({communicability: 100, ability_to_organize: 100})
+		programmer = Programmer.new({skill: 100, rationality: 100, fatigue: 100, order: order, manager: manager})
 	end
-case
-when (x!= "10" or x1 != "17") && (y != "11" or y1 != "13")
-	puts "Координаты x и y не совпадают"
-when (x == "10" or x1 == "17") && (y != "11" or y1 != "13")
-	puts "Координата x верна, y - нет"
-when (y == "11" or y1 == "13") && (x != "10" or x1 != "17")
-	puts "Координата y верна, x - нет"
 end
-
-
-
-
+binding.pry
