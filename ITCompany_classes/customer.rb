@@ -1,11 +1,6 @@
-require 'pry'
 class Customer
 
-	attr_reader :requirements
-	attr_reader :remuneration
-	attr_reader :competence
-	attr_reader :adequacy
-	attr_reader :manager
+	attr_reader :requirements, :remuneration, :competence, :adequacy, :manager
 
 	def initialize(options)
 		@requirements = options[:requirements]
@@ -15,5 +10,3 @@ class Customer
 		@manager = options[:manager]
 	end
 end
-
-binding.pry

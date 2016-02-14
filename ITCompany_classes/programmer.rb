@@ -1,10 +1,6 @@
 class Programmer
 
-	attr_reader :skill
-	attr_reader :rationality
-	attr_reader :fatigue
-	attr_reader :order
-	attr_reader :manager
+	attr_reader :skill, :rationality, :fatigue, :order, :manager
 
 	def initialize(options)
 		@skill = options[:skill]

@@ -1,7 +1,6 @@
 class Manager
 
-	attr_reader :communicability
-	attr_reader :ability_to_organize
+	attr_reader :communicability, :ability_to_organize
 
 	def initialize(options)
 		@communicability = options[:communicability]

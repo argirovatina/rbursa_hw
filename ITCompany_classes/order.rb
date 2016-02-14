@@ -1,10 +1,6 @@
 class Order
 
-	attr_reader :complexity
-	attr_reader :clear
-	attr_reader :deadline
-	attr_reader :customer
-	attr_reader :manager
+	attr_reader :complexity, :clear, :deadline, :customer, :manager
 
 	def initialize(options)
 		@complexity = options[:complexity]
