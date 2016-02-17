@@ -1,107 +1,113 @@
 require 'pry'
 
 @@list = []
-MAX_TASKS = 10
 
 class Developer
+	MAX_TASKS = 10
+
 	def initialize(developer)
 		@developer = developer
 	end
 
 	def add_task(task)
 		@@list << task
-		if @@list.length <= MAX_TASKS
-			puts "Вася: добавлена задача #{task}. Всего в списке задач: #{@@list.length}"
-		else
-			puts "Слишком много работы!"
+		begin
+			if @@list.length <= MAX_TASKS
+				puts "Вася: добавлена задача #{task}. Всего в списке задач: #{@@list.length}"
+			else
+				puts "Слишком много работы!"
+			end
+		rescue
+
 		end
 	end
 
 	def tasks
-		tasks_number = (1..@@list.length)
-		h = Hash[tasks_number.zip @@list]
-		h.each  {|key, value| puts "#{key}." "#{value}"}
+		@@list.each_with_index.each{|key, value| puts "#{value+1}. #{key}"}
 	end
 
 	def work!
-		first_task = @@list.shift
-		
-		if @@list.length > 0
-			puts "Вася: выполнена задача #{first_task}. Осталось задач: #{@@list.length}"
-		else
-			puts "Нечего делать!"
+		begin
+			if @@list.length > 0
+				puts "Вася: выполнена задача #{@@list.shift}. Осталось задач: #{@@list.length}"
+			else
+				raise "Нечего делать!"
+			end
+		rescue
+
+		end
+    end
+		def status
+			case @@list.length
+				when (1..MAX_TASKS)
+					puts "работаю"
+				when 0
+					puts "свободен"
+				else
+					puts "занят"
+			end
+		end
+
+		def can_add_task?
+			@@list.length.between?(0,MAX_TASKS-1)
+		end
+
+		def can_work?
+			@@list.length.zero?
 		end
 	end
 
-	def status
-		if @@list.length.between?(1,MAX_TASKS) 
-			puts "работаю"
-		elsif @@list.length == 0
-			puts "свободен"
-		else
-			puts "занят"
-		end
-	end
+	class JuniorDeveloper < Developer
+		MAX_TASKS = 5
 
-	def can_add_task?
-		if @@list.length.between?(0,MAX_TASKS) 
-			true
-		else
-			false
-		end
-	end
+		def work!
+		  begin
+		    @@list.each{ |task| raise "Слишком сложно!" if @@list.chars.delete_if{|char| char == ' '}.length > 20 }
+		    binding.pry
+		  rescue
+		  	puts "Слишком сложно!"
+		  end
 
-	def can_work?
-		if @@list.length > 0
-			true
-		else
-			false
-		end
-	end
+		  puts "Вася: пытаюсь делать задачу #{@@list.shift}. Осталось задач: #{@@list.length}" if @@list.length > 0
+	    end
 end
+	class SeniorDeveloper < Developer
+		MAX_TASKS = 15
 
-class JuniorDeveloper < Developer
-	MAX_TASKS = 5
-
-	def work!
-		first_task = @@list.shift
-		puts "Слишком сложно!" if first_task.length > 20
-		
-		if @@list.length > 0
-			puts "Вася: пытаюсь делать задачу #{first_task}. Осталось задач: #{@@list.length}"
-		else
-			puts "Нечего делать!"
+		def work!
+			if @@list.length > 0
+				puts "Вася: пытаюсь делать задачу #{@@list.shift}. Осталось задач: #{@@list.length}"
+			else
+				puts "Что-то лень"
+			end
 		end
 	end
-end
-
-class SeniorDeveloper < Developer
-	MAX_TASKS = 15
-
-	def work!
-		first_task = @@list.shift
-		
-		if @@list.length > 0
-			
-			puts "Вася: пытаюсь делать задачу #{first_task}. Осталось задач: #{@@list.length}"
-		else
-			puts "Что-то лень"
-		end
-	end
-end
 
 
-dev = Developer.new('Вася')
-# p dev.add_task('Giese Flo')
+	dev = JuniorDeveloper.new('Вася')
+ 	p dev.add_task('Giese Flo ooioioouioouuou ioiouoiuoiuououoiu oiuououo')
 
-# p dev.add_task('HGH')
-# p dev.add_task('HGH1')
+	p dev.add_task('HGHoooioppoippopoipoipopopoipipoipipipipi')
+	p dev.add_task('HGH1')
+p dev.add_task('Giese Flo')
+
+	p dev.add_task('HGH')
+	p dev.add_task('HGH1')
+p dev.add_task('Giese Flo')
+
+	p dev.add_task('HGH')
+	p dev.add_task('HGH1')
+ p dev.add_task('Giese Flo')
+
+# 	p dev.add_task('HGH')
+# 	p dev.add_task('HGH1')
 
 
 
-# p dev.tasks
-# p dev.work!
-p dev.status
-p dev.can_add_task?
-p dev.can_work?
+	#p dev.tasks
+	p dev.work!
+
+#p dev.status
+ #p dev.can_add_task?
+#p dev.can_work?
 
