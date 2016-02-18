@@ -77,7 +77,37 @@ class SeniorDeveloper < Developer
   MAX_TASKS = 15
 
   def work!
-    ["work", "relax"].sample == "work" ? (2.times { puts "#{@developer}: выполнена задача #{@@list.shift}. Осталось задач: #{@@list.length}" }) : ("Что-то лень")
+    ["work", "relax"].sample == "work" ? (super; super) : ("Что-то лень")
   end
 end
+
+
+dev = SeniorDeveloper.new('Вася')
+p dev.add_task('Giese Flo ooioioouioouuou ioiouoiuoiuououoiu oiuououo')
+
+	p dev.add_task('HGHoooioppoippopoipoipopopoipipoipipipipi')
+	p dev.add_task('HGH1')
+p dev.add_task('Giese Flo')
+
+	p dev.add_task('HGH')
+	p dev.add_task('HGH1')
+p dev.add_task('Giese Flo')
+
+	p dev.add_task('HGH')
+	p dev.add_task('HGH1')
+ p dev.add_task('Giese Flo')
+  p dev.add_task('Giese Flo')
+p dev.add_task('Giese Flo')
+p dev.add_task('Giese Flo')
+
+p dev.add_task('HGH')
+p dev.add_task('HGH1')
+
+
+#p dev.tasks
+p dev.work!
+
+# p dev.status
+p dev.can_add_task?
+p dev.can_work?
 
