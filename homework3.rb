@@ -80,34 +80,3 @@ class SeniorDeveloper < Developer
     ["work", "relax"].sample == "work" ? (super; super) : ("Что-то лень")
   end
 end
-
-
-dev = SeniorDeveloper.new('Вася')
-p dev.add_task('Giese Flo ooioioouioouuou ioiouoiuoiuououoiu oiuououo')
-
-	p dev.add_task('HGHoooioppoippopoipoipopopoipipoipipipipi')
-	p dev.add_task('HGH1')
-p dev.add_task('Giese Flo')
-
-	p dev.add_task('HGH')
-	p dev.add_task('HGH1')
-p dev.add_task('Giese Flo')
-
-	p dev.add_task('HGH')
-	p dev.add_task('HGH1')
- p dev.add_task('Giese Flo')
-  p dev.add_task('Giese Flo')
-p dev.add_task('Giese Flo')
-p dev.add_task('Giese Flo')
-
-p dev.add_task('HGH')
-p dev.add_task('HGH1')
-
-
-#p dev.tasks
-p dev.work!
-
-# p dev.status
-p dev.can_add_task?
-p dev.can_work?
-
