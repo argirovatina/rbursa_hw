@@ -8,6 +8,7 @@ class Team
   attr_reader :developers
   attr_reader :seniors
 
+
   def initialize(&block)
     instance_eval(&block)
   end
@@ -24,17 +25,25 @@ class Team
     @seniors = names
   end
 
-  
+  def priority(*params)
+    all_developers =
+        {
+        params[0] => @juniors,
+    params[1] => @developers,
+    params[2] => @seniors
+    }
+  end
 
 end
 
-  team = Team.new {
-    have_seniors "Олег", "Оксана"
-    have_developers "Олеся", "Василий", "Игорь-Богдан"
+  team = Team.new do
     have_juniors "Владислава", "Аркадий", "Рамеш"
-}
+    have_developers "Олеся", "Василий", "Игорь-Богдан"
+    have_seniors "Олег", "Оксана"
+    priority :juniors, :developers, :seniors
+end
 
-p team.developers
+p team.priority :juniors, :developers
 
 
 
