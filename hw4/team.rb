@@ -44,27 +44,21 @@ class Team
   end
 
   def priority(*params)
-    @priority = params
-  end
+    #@priority = params
+    @priority = params.each.zip([juniors, developers, seniors]).to_h
 
-=begin
-  def select_dev(priority, task)
-
-    priority.each do |p|
-      a = send p
-      a.length.times do
-        a.each{|dev| dev.add_task(task) if dev.can_add_task?}
-      end
-    end
   end
-=end
 
   def add_task(task)
-    #select_dev(@priority, task)
+    @priority[:junior].map {|dev| dev.add_task(task)}
+    # @priority.each do |p|
+    #   a = send p
+    #   a.each{|dev| dev.add_task(task) if dev.can_add_task?}
+    # end
   end
 
-  def on_task(*params)
-    send params.to_sym
+  def on_task
+
   end
 
   def report
@@ -83,21 +77,26 @@ team = Team.new do
 
   priority :juniors, :developers, :seniors
 
-  # on_task :junior do |dev, task|
-  #   puts "Отдали задачу #{task} разработчику #{dev.name}, следите за ним!"
-  # end
-  #
-  # on_task :developer do |dev, task|
-  #   puts "Отдали задачу #{task} разработчику #{dev.name}, ушел работать!"
-  # end
-  #
+  on_task :junior do |dev, task|
+    puts "Отдали задачу #{task} разработчику #{dev.name}, следите за ним!"
+  end
+
+  on_task :developer do |dev, task|
+    puts "Отдали задачу #{task} разработчику #{dev.name}, ушел работать!"
+  end
+
   on_task :senior do |dev, task|
     puts "Отдали задачу #{task} разработчику #{dev.name}, но просит больше с такими глупостями не приставать!"
   end
 end
 
-n = 10
-n.times{|times| team.add_task("Gjalksf #{times+1}")}
-puts team.report
-puts team.on_task(:junior)
+#n = 10
+puts team.priority(:junior)
+#n.times{|times| team.add_task("Gjalksf #{times+1}")}
+puts team.add_task '1'
+puts team.add_task '2'
+puts team.add_task '3'
+puts team.add_task '4'
+#puts team.report
+puts team.on_task
 
