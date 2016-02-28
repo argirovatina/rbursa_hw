@@ -5,26 +5,21 @@ require_relative 'senior_developer'
 class Team
 
   def initialize(&block)
-    @all_developers = []
+    @all_developers = {}
+    @on_work = {}
     instance_eval(&block)
   end
 
   def have_juniors(*names)
-    names.each do |name|
-      @all_developers << JuniorDeveloper.new(name)
-    end
+    @all_developers[:juniors] = names.map {|name| JuniorDeveloper.new(name)}
   end
 
   def have_developers(*names)
-    names.each do |name|
-      @all_developers.push(Developer.new(name))
-    end
+    @all_developers[:developers] = names.map {|name| Developer.new(name)}
   end
 
   def have_seniors(*names)
-    names.each do |name|
-      @all_developers.push(SeniorDeveloper.new(name))
-    end
+    @all_developers[:seniors] = names.map {|name| SeniorDeveloper.new(name)}
   end
 
   def juniors
@@ -40,29 +35,24 @@ class Team
   end
 
   def team_all
-    @all_developers
+    @all_developers.values.flatten
   end
 
   def priority(*params)
-    #@priority = params
-    @priority = params.each.zip([juniors, developers, seniors]).to_h
-
+    @priority = params
   end
 
   def add_task(task)
-    @priority[:junior].map {|dev| dev.add_task(task)}
-    # @priority.each do |p|
-    #   a = send p
-    #   a.each{|dev| dev.add_task(task) if dev.can_add_task?}
-    # end
+   available_dev = team_all.select{|dev| dev.can_add_task?}.sort_by{|dev| [@priority.index(dev.level), dev.list.count]}
+   available_dev.first.add_task(task)
   end
 
-  def on_task
-
+  def on_task(level, &block)
+    @on_work[level] = block if block_given?
   end
 
   def report
-    @all_developers.map do |developer|
+    team_all.map do |developer|
       str =  "#{developer.list}" unless developer.list.empty?
       str = "Нет задач!" if developer.list.empty?
       "'#{developer.developer}' ('#{developer.level}') : #{str} "
@@ -71,9 +61,9 @@ class Team
 end
 
 team = Team.new do
-  have_seniors "Олег", "Оксана"
-  have_developers "Олеся", "Василий", "Игорь-Богдан"
   have_juniors "Владислава", "Аркадий", "Рамеш"
+  have_developers "Олеся", "Василий", "Игорь-Богдан"
+  have_seniors "Олег", "Оксана"
 
   priority :juniors, :developers, :seniors
 
@@ -91,12 +81,11 @@ team = Team.new do
 end
 
 #n = 10
-puts team.priority(:junior)
-#n.times{|times| team.add_task("Gjalksf #{times+1}")}
+# puts team.priority(:junior)
+# #n.times{|times| team.add_task("Gjalksf #{times+1}")}
 puts team.add_task '1'
-puts team.add_task '2'
-puts team.add_task '3'
-puts team.add_task '4'
-#puts team.report
-puts team.on_task
-
+ puts team.add_task '2'
+ puts team.add_task '3'
+ puts team.add_task '4'
+# puts team.report
+puts team.on_task(:junior)
