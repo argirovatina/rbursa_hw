@@ -2,7 +2,7 @@ require_relative 'developer'
 
 class JuniorDeveloper < Developer
   MAX_TASKS = 5
-  @level = :junior
+  @level = :juniors
 
   def add_task(task)
     begin
@@ -15,6 +15,6 @@ class JuniorDeveloper < Developer
   end
 
   def work!
-    puts "#{@developer}: пытаюсь делать задачу #{@@list.shift}. Осталось задач: #{@@list.length}" if @@list.length > 0
+    puts "#{@name}: пытаюсь делать задачу #{@list.shift}. Осталось задач: #{@list.length}" if @list.length > 0
   end
 end

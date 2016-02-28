@@ -1,11 +1,11 @@
 class Developer
 
   attr_reader :list
-  attr_reader :developer
+  attr_reader :name
   attr_reader :level
 
   MAX_TASKS = 10
-  @level = :developer
+  @level = :developers
 
   def max_tasks
     self.class::MAX_TASKS
@@ -13,14 +13,14 @@ class Developer
 
   def initialize(developer)
     @list = []
-    @developer = developer
+    @name = developer
     @level = self.class.instance_variable_get :@level
   end
 
   def add_task(task)
     @list << task
     if @list.length <= max_tasks
-      puts "#{@developer}: добавлена задача #{task}. Всего в списке задач: #{@list.length}"
+      puts "#{@name}: добавлена задача #{task}. Всего в списке задач: #{@list.length}"
     else
       puts "Слишком много работы!"
     end
@@ -33,7 +33,7 @@ class Developer
   def work!
     begin
       if @list.length > 0
-        puts "#{@developer}: выполнена задача #{@list.shift}. Осталось задач: #{@list.length}"
+        puts "#{@name}: выполнена задача #{@list.shift}. Осталось задач: #{@list.length}"
       else
         raise ArgumentError, "Нечего делать!"
       end
@@ -54,7 +54,7 @@ class Developer
   end
 
   def can_add_task?
-    @list.length.between?(0, max_tasks-1)
+    @list.length < max_tasks
   end
 
   def can_work?

@@ -23,18 +23,18 @@ class Team
   end
 
   def juniors
-    @all_developers.select { |name| name.class == JuniorDeveloper }
+    @all_developers[:juniors].select { |name| name.class == JuniorDeveloper }
   end
 
   def developers
-    @all_developers.select { |name| name.class == Developer }
+    @all_developers[:developers].select { |name| name.class == Developer }
   end
 
   def seniors
-    @all_developers.select { |name| name.class == SeniorDeveloper }
+    @all_developers[:seniors].select { |name| name.class == SeniorDeveloper }
   end
 
-  def team_all
+  def all
     @all_developers.values.flatten
   end
 
@@ -43,8 +43,14 @@ class Team
   end
 
   def add_task(task)
-   available_dev = team_all.select{|dev| dev.can_add_task?}.sort_by{|dev| [@priority.index(dev.level), dev.list.count]}
-   available_dev.first.add_task(task)
+   available_dev = all.select{|dev| dev.can_add_task?}.sort_by{|dev| [@priority.index(dev.level), dev.list.count]}
+   fail ArgumentError if available_dev.empty?
+  rescue ArgumentError
+    'Нет свободных разработчиков'
+  else
+   first_in_row = available_dev.first
+   first_in_row.add_task(task)
+   @on_work[first_in_row.level.to_s.chop.to_sym].call(first_in_row, task)
   end
 
   def on_task(level, &block)
@@ -52,18 +58,18 @@ class Team
   end
 
   def report
-    team_all.map do |developer|
-      str =  "#{developer.list}" unless developer.list.empty?
-      str = "Нет задач!" if developer.list.empty?
-      "'#{developer.developer}' ('#{developer.level}') : #{str} "
+    all.map do |developer|
+      str =  "#{developer.list.join(', ')}" unless developer.list.empty?
+      str = 'Нет задач!' if developer.list.empty?
+      "#{developer.name} (#{developer.level.to_s.chop}) : #{str} "
     end
   end
 end
 
 team = Team.new do
-  have_juniors "Владислава", "Аркадий", "Рамеш"
-  have_developers "Олеся", "Василий", "Игорь-Богдан"
-  have_seniors "Олег", "Оксана"
+  have_seniors 'Олег', 'Оксана'
+  have_developers 'Олеся', 'Василий', 'Игорь-Богдан'
+  have_juniors 'Владислава', 'Аркадий', 'Рамеш'
 
   priority :juniors, :developers, :seniors
 
@@ -79,13 +85,3 @@ team = Team.new do
     puts "Отдали задачу #{task} разработчику #{dev.name}, но просит больше с такими глупостями не приставать!"
   end
 end
-
-#n = 10
-# puts team.priority(:junior)
-# #n.times{|times| team.add_task("Gjalksf #{times+1}")}
-puts team.add_task '1'
- puts team.add_task '2'
- puts team.add_task '3'
- puts team.add_task '4'
-# puts team.report
-puts team.on_task(:junior)
