@@ -58,7 +58,7 @@ class Team
   end
 
   def report
-    @available_dev.map do |developer|
+    @available_dev.sort_by{|dev| dev.list.size}.map do |developer|
       str =  "#{developer.list.join(', ')}" unless developer.list.empty?
       str = 'Нет задач!' if developer.list.empty?
       puts "#{developer.name} (#{developer.level.to_s.chop}) : #{str} "
