@@ -43,12 +43,12 @@ class Team
   end
 
   def add_task(task)
-   available_dev = all.select{|dev| dev.can_add_task?}.sort_by{|dev| [@priority.index(dev.level), dev.list.count]}
-   fail ArgumentError if available_dev.empty?
+   @available_dev = all.select{|dev| dev.can_add_task?}.sort_by{|dev| [@priority.index(dev.level), dev.list.count]}
+   fail ArgumentError if @available_dev.empty?
   rescue ArgumentError
     'Нет свободных разработчиков'
   else
-   first_in_row = available_dev.first
+   first_in_row = @available_dev.first
    first_in_row.add_task(task)
    @on_work[first_in_row.level.to_s.chop.to_sym].call(first_in_row, task)
   end
@@ -58,10 +58,10 @@ class Team
   end
 
   def report
-    all.map do |developer|
+    @available_dev.map do |developer|
       str =  "#{developer.list.join(', ')}" unless developer.list.empty?
       str = 'Нет задач!' if developer.list.empty?
-      "#{developer.name} (#{developer.level.to_s.chop}) : #{str} "
+      puts "#{developer.name} (#{developer.level.to_s.chop}) : #{str} "
     end
   end
 end
