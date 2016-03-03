@@ -1,0 +1,2 @@
+class PetitonsController < ApplicationController
+end
