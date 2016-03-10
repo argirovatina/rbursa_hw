@@ -1,0 +1,22 @@
+<div >
+  <% flash.each do |name, msg| %>
+      <div><%= msg %></div>
+  <% end %>
+</div>
+
+<h1>Вход</h1>
+<%= form_for :session, url: sessions_path  do |f| %>
+
+    <div>
+      <%=  f.label :email, 'Email' %>
+      <%=  f.text_field :email %>
+    </div>
+
+    <div>
+      <%= f.label :password, 'Пароль'   %>
+      <%= f.password_field :password %>
+    </div>
+
+    <%= f.submit 'Войти', :name => 'submit' %>
+<% end %>
+</div>

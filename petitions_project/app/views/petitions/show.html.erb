@@ -1,0 +1,54 @@
+<!--<strong>-->
+  <!--<%= @petition.title %>-->
+<!--</strong>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<%= @petition.text %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<%= link_to 'Все петиции', controller: 'petitions' %>-->
+<!--</p>-->
+<!--<p>-->
+  <!--<%= link_to 'Создать петицию', new_petition_path %>-->
+<!--</p>-->
+<!--<p>-->
+  <!--<a href="#">TODO Мои петиции</a>-->
+<!--</p>-->
+
+<h1>Все петиции </h1>
+
+<div>
+  <% flash.each do |name, msg| %>
+      <%= msg %>
+  <% end %>
+</div>
+
+<%= link_to 'Выйти', logout_path %>
+<%= link_to 'Зарегистрироваться', signup_path %>
+<%= link_to 'Войти', login_path %>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Петиция</th>
+    <th>Автор</th>
+  </tr>
+  </thead>
+
+  <% @petitions.each do |petition| %>
+      <tr>
+        <td>
+          <%= link_to petition.title, petition_path(petition)%>
+        </td>
+
+        <td>
+          <% user = @users.find(id=petition.user_id) %>
+          <%= [user.first_name, user.last_name].join(' ') %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+

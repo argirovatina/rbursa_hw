@@ -1,1 +1,9 @@
-<h1>Petition index here</h1>
+<div>
+  <% flash.each do |name, msg| %>
+      <%= msg %>
+  <% end %>
+</div>
+
+<%= link_to 'Выйти', logout_path%>
+<%= link_to 'Зарегистрироваться',signup_path %>
+<%= link_to 'Войти', login_path %>
