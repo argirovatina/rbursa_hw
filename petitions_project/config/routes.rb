@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'petitions#index_last'
+
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
@@ -8,13 +10,8 @@ Rails.application.routes.draw do
   resources :users
   resources :petitions
 
-  root 'petitions#indext'
-
-  # root 'welcome#index'
-
   #get 'users#index'
   #post 'users#create'
-  #get 'users#new'
 
   # get 'petitions#index'
   # #post 'petitions#create'

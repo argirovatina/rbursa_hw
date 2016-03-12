@@ -1,5 +1,19 @@
 <h1> Новая петиция </h1>
 
+<div>
+  <% flash.each do |name, msg| %>
+      <%= msg %>
+  <% end %>
+</div>
+
+<% if @petition.errors.any? %>
+    <% @petition.errors.full_messages.each do |message| %>
+        <div class="label label-danger">
+          <%=  message %>
+        </div>
+    <% end %>
+<% end %>
+
 <%= form_for :petition, url: petitions_path do |f| %>
     <p>
       <%= f.label :Название %><br>

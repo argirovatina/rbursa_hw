@@ -1,0 +1,5 @@
+<%= link_to 'Все петиции', petitions_path %></li>
+<%= link_to 'Создать петицию', new_petition_path %>
+<% if current_user %>
+    <%= link_to 'Мои петиции', petitions_path({my: true}) %>
+<% end %>

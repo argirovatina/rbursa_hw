@@ -1,9 +1,21 @@
 class PetitionsController < ApplicationController
 
   def index
-    @petitions = Petition.all
+    if params[:my] && current_user
+      @petitions = Petition.where(user_id: current_user.id).reverse
+      @title = 'Мои петиции'
+    else
+      @petitions = Petition.all.reverse
+      @title = 'Все петиции'
+    end
     @users = User.all
+  end
 
+  def index_last
+    @petitions = Petition.last(10).reverse
+    @users = User.all
+    @title = 'Последние петиции'
+    render 'index'
   end
 
   def new
@@ -24,9 +36,8 @@ class PetitionsController < ApplicationController
     @petition = Petition.find(params[:id])
   end
 
-
   private
   def petition_params
-    params.require(:petition).permit(:title, :text)
+    params.require(:petition).permit(:title, :text) if params[:petition]
   end
 end

@@ -1,0 +1,5 @@
+<% if current_user %>
+<%= current_user.email %> (<%= link_to 'Выйти', logout_path%>)
+<% else %>
+    <%= link_to 'Зарегистрироваться',signup_path %> | <%= link_to 'Войти', login_path %>
+<% end %>
