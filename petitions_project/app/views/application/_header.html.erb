@@ -1,5 +1,18 @@
-<% if current_user %>
-<%= current_user.email %> (<%= link_to 'Выйти', logout_path%>)
+<div class="well sidebar-nav">
+  <div class="navbar navbar-fixed-top">
+
+    <div class="col-md-8">Онлайн петиции нашего района</div>
+
+    <div class="col-md-4">
+
+  <span>
+    <% if current_user %>
+<%= current_user.email %> (<%= link_to 'Выйти', logout_path %>)
 <% else %>
-    <%= link_to 'Зарегистрироваться',signup_path %> | <%= link_to 'Войти', login_path %>
+    <%= link_to 'Зарегистрироваться', signup_path %> | <%= link_to 'Войти', login_path %>
 <% end %>
+  </span>
+
+    </div>
+  </div>
+</div>

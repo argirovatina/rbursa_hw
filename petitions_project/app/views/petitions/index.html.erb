@@ -1,29 +1,30 @@
-<h1>Все петиции </h1>
+<div class="col-md-8">
 
-<div>
   <% flash.each do |name, msg| %>
-      <%= msg %>
+      <div class="label label-success"><%= msg %></div>
   <% end %>
+
+  <h1>Все петиции</h1>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th><h4>Петиция</h4></th>
+      <th><h4>Автор</h4></th>
+    </tr>
+    </thead>
+
+    <% @petitions.each do |petition| %>
+        <tr>
+          <td>
+            <%= link_to petition.title, petition_path(petition) %>
+          </td>
+
+          <td>
+            <% user = @users.find(id=petition.user_id) %>
+            <%= [user.first_name, user.last_name].join(' ') %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
 </div>
-
-<table class="table">
-  <thead>
-  <tr>
-    <th>Петиция</th>
-    <th>Автор</th>
-  </tr>
-  </thead>
-
-  <% @petitions.each do |petition| %>
-      <tr>
-        <td>
-          <%= link_to petition.title, petition_path(petition)%>
-        </td>
-
-        <td>
-          <% user = @users.find(id=petition.user_id) %>
-          <%= [user.first_name, user.last_name].join(' ') %>
-        </td>
-      </tr>
-  <% end %>
-</table>

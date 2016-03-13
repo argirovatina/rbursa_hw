@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   def index
+    redirect_to new_session_path
   end
 
   def new
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to 'index', notice: 'Профиль успешно создан!'
+      redirect_to petitions_path, notice: 'Профиль успешно создан!'
     else
       render 'new'
     end

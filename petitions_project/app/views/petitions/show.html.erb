@@ -1,6 +1,10 @@
-<h1>Петиция</h1>
+<div class="col-md-1"></div>
+<div class="col-md-7">
+  <h1>Петиция</h1>
+
 <%= form_for :petition, url: petitions_path do |f| %>
 <%= @petition.title %>
 <%= @petition.text %>
 
+      </div>
 <% end %>
