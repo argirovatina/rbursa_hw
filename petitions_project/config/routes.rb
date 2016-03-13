@@ -10,11 +10,4 @@ Rails.application.routes.draw do
   resources :users
   resources :petitions
 
-  #get 'users#index'
-  #post 'users#create'
-
-  # get 'petitions#index'
-  # #post 'petitions#create'
-  # get 'petitions#new'
-
 end

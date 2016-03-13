@@ -24,13 +24,18 @@ class PetitionsController < ApplicationController
 
   def create
     @petition = Petition.new(petition_params)
-    @petition.user_id = current_user.id
+    @petition.user_id = current_user.id unless current_user.nil?
     if @petition.save
-      redirect_to @petition
+      redirect_to @petition, notice: 'Создана новая петиция'
     else
       render 'new'
     end
   end
+
+  def edit
+
+  end
+
 
   def show
     @petition = Petition.find(params[:id])
@@ -40,4 +45,7 @@ class PetitionsController < ApplicationController
   def petition_params
     params.require(:petition).permit(:title, :text) if params[:petition]
   end
+
+
+
 end

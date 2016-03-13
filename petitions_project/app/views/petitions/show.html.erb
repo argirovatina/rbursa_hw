@@ -2,9 +2,12 @@
 <div class="col-md-7">
   <h1>Петиция</h1>
 
-<%= form_for :petition, url: petitions_path do |f| %>
-<%= @petition.title %>
-<%= @petition.text %>
+  <%= form_for :petition, url: petitions_path do |f| %>
+      <%= @petition.title %>
+      <div><span style="color:grey"><%= @petition.created_at.strftime("%d/%m/%Y %H:%M") %></span></div>
 
+      <%= @petition.text %>
+      <div><span>Голосов: </span><%= '...' %></div>
+     <div><%= button_to 'Поддержать' %></div>
       </div>
-<% end %>
+  <% end %>

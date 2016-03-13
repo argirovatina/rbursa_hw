@@ -2,16 +2,10 @@
 <div class="col-md-6">
   <h1>Новая петиция</h1>
 
-    <% flash.each do |name, msg| %>
-        <div class="label label-danger"><%= msg %></div>
-    <% end %>
-
   <%= form_for :petition, url: petitions_path do |f| %>
 
       <% if @petition.errors.any? %>
-          <% @petition.errors.full_messages.each do |message| %>
-              <div class="label label-danger"><%= message %></div>
-          <% end %>
+              <div class="alert alert-danger"> Невозможно создать петицию неавторизованному пользователю. </div>
       <% end %>
 
       <div class="form-group">

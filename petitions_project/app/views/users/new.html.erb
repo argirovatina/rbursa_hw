@@ -2,10 +2,9 @@
 <div class="col-md-4">
 
 <%= form_for :user, url: users_path  do |f| %>
+
     <% if @user.errors.any? %>
-        <% @user.errors.full_messages.each do |message| %>
-              <div class="label label-danger"><%= message %></div>
-        <% end %>
+          <div class="alert alert-danger">Невозможно создать пользователя</div>
     <% end %>
 
       <h1>Регистрация</h1>
