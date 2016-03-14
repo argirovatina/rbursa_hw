@@ -1,12 +1,7 @@
 <div class="col-md-2"></div>
 <div class="col-md-6">
-  <h1>Новая петиция</h1>
 
   <%= form_for :petition, url: petitions_path do |f| %>
-
-      <% if @petition.errors.any? %>
-              <div class="alert alert-danger"> Невозможно создать петицию неавторизованному пользователю </div>
-      <% end %>
 
       <div class="form-group">
         <div><%= f.label :Название %></div>
@@ -18,7 +13,6 @@
         <%= f.text_area :text %>
       </div>
 
-      <%= f.submit 'Создать', :name => 'submit', class: "btn btn-success" %>
+      <%= f.submit 'Сохранить', :name => 'submit', class: "btn btn-success" %>
       </div>
   <% end %>
-

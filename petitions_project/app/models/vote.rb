@@ -1,5 +1,5 @@
 class Vote < ActiveRecord::Base
 
-  validates uniqueness: {scope: 1}
+  validates_uniqueness_of :vote_id, :scope => [:user_id, :petition_id]
 
 end

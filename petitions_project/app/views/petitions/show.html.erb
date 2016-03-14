@@ -2,6 +2,10 @@
 <div class="col-md-7">
   <h1>Петиция</h1>
 
+  <% if @petition.errors.any? %>
+      <div class="alert alert-danger"> Вы уже поддержали данную петицию </div>
+  <% end %>
+
   <%= form_for :petition, url: petitions_path do |f| %>
       <%= @petition.title %>
       <div><span style="color:grey"><%= @petition.created_at.strftime("%d/%m/%Y %H:%M") %></span></div>

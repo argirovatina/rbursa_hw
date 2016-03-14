@@ -2,25 +2,14 @@
   <th><h4>Петиция</h4></th>
   <th><h4>Голоса</h4></th>
   <th><h4>Дата создания</h4></th>
-  <th colspan="2"><h4>Действия</h4></th>
-
-  <td><%= link_to 'Изменить' %></td>
-  <td><%= link_to 'Удалить' %></td>
-
+  <th colspan="2" class="text-center"><h4>Действия</h4></th>
 </tr>
-
 <% @petitions.each do |petition| %>
-    <tr>
-      <td>
-        <%= link_to petition.title, petition_path(petition) %>
-      </td>
-
-      <td>
-
-      </td>
-
-      <td>
-        <%= petition.created_at.strftime("%d/%m/%Y %H:%M") %>
-      </td>
-    </tr>
+<tr>
+  <td><%= link_to petition.title, petition_path(petition) %></td>
+  <td></td>
+  <td><%= petition.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+  <td><%= link_to 'Изменить', edit_petition_path(petition) %></td>
+  <td><%= link_to 'Удалить', petition, method: :delete, data: { confirm: 'Вы действительно хотите удалить петицию?' } %></td>
+</tr>
 <% end %>
