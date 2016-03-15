@@ -1,7 +1,7 @@
 <div class="col-md-2"></div>
 <div class="col-md-6">
 
-  <%= form_for :petition, url: petitions_path do |f| %>
+  <%= form_for :petition, url: petitions_path(@petition), method: :put do |f| %>
 
       <div class="form-group">
         <div><%= f.label :Название %></div>
@@ -13,6 +13,6 @@
         <%= f.text_area :text %>
       </div>
 
-      <%= f.submit 'Сохранить', :name => 'submit', class: "btn btn-success" %>
+      <%= f.submit 'Сохранить', class: "btn btn-success" %>
       </div>
   <% end %>

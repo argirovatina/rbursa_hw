@@ -39,6 +39,4 @@ ActiveRecord::Schema.define(version: 20160312164722) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
-
 end
