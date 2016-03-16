@@ -1,0 +1,29 @@
+<div class="col-md-4"></div>
+<div class="col-md-4">
+
+  <% flash.each do |name, msg| %>
+      <div class="alert alert-danger"><%= msg %></div>
+  <% end %>
+
+  <h1>Вход</h1>
+  <%= form_for :session, url: sessions_path do |f| %>
+      <form>
+        <div class="form-group">
+         <div><%= f.label :email, 'Email или логин' %></div>
+        <%= f.text_field :email %>
+        </div>
+        <div class="form-group">
+          <div><%= f.label :password, 'Пароль' %></div>
+        <div><%= f.password_field :password %></div>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Запомнить меня
+          </label>
+        </div>
+
+        <%= f.submit 'Войти', :name => 'submit', class: "btn btn-primary" %>
+  <% end %>
+
+  </form>
+</div>

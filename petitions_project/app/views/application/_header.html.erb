@@ -1,0 +1,18 @@
+<div class="well sidebar-nav">
+  <div id="fix-for-navbar-fixed-top-spacing" style="height: 10px;">
+
+    <div class="col-md-8">Онлайн петиции нашего района</div>
+
+    <div class="col-md-4">
+
+  <span>
+    <% if current_user %>
+<%= current_user.email %> (<%= link_to 'Выйти', logout_path %>)
+<% else %>
+    <%= link_to 'Зарегистрироваться', signup_path %> | <%= link_to 'Войти', login_path %>
+<% end %>
+  </span>
+
+    </div>
+  </div>
+</div>

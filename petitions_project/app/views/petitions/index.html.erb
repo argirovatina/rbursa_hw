@@ -1,0 +1,47 @@
+<div class="col-md-8">
+
+  <% flash.each do |name, msg| %>
+      <div class="alert alert-success"><%= msg %></div>
+  <% end %>
+
+  <h1><%= @title %></h1>
+
+  <table class="table">
+    <thead>
+
+    <% if params[:my] && current_user %>
+        <%= render 'my_petition_view' %>
+    <% else %>
+
+        <tr>
+          <th><h4>Петиция</h4></th>
+          <th><h4>Автор</h4></th>
+          <th><h4>Голоса</h4></th>
+          <th><h4>Дата создания</h4></th>
+        </tr>
+    </thead>
+
+
+    <% @petitions.each do |petition| %>
+        <tr>
+          <td>
+            <%= link_to petition.title, petition_path(petition) %>
+          </td>
+
+          <td>
+            <% user = @users.find(id=petition.user_id) %>
+            <%= [user.first_name, user.last_name].join(' ') %>
+          </td>
+
+          <td>
+            <span>Голосов: </span><%= '@petition.votes.count' %>
+          </td>
+
+          <td>
+            <%= petition.created_at.strftime("%d/%m/%Y %H:%M") %>
+          </td>
+        </tr>
+    <% end %>
+    <% end %>
+  </table>
+</div>
