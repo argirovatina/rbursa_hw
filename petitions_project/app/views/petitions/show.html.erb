@@ -9,7 +9,7 @@
       <%= @petition.text %>
       <div><span>Голосов: </span><%= @petition.votes.count %></div>
      <div>
-       <%= button_to 'Поддержать', votes_path, method: :post%>
+       <%= button_to 'Поддержать', votes_path({petition_id: @petition.id}) %>
      </div>
       </div>
   <% end %>
