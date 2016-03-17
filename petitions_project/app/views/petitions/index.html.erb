@@ -1,9 +1,5 @@
 <div class="col-md-8">
 
-  <% flash.each do |name, msg| %>
-      <div class="alert alert-success"><%= msg %></div>
-  <% end %>
-
   <h1><%= @title %></h1>
 
   <table class="table">
@@ -34,7 +30,7 @@
           </td>
 
           <td>
-            <span>Голосов: </span><%= '@petition.votes.count' %>
+            <span>Голосов: </span><%= petition.votes.count %>
           </td>
 
           <td>

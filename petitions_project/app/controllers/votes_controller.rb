@@ -1,11 +1,13 @@
 class VotesController < ApplicationController
 
   def create
-    vote = current_user.votes.create(votes_params)
-    redirect_to vote.petition, notice: 'Ваш голос учтен'
+    @vote = Vote.new
+    @petition = Petition.find(params[:id])
+    @petition.votes.create(votes_params).save
+    redirect_to @petition, notice: 'Ваш голос учтен'
   end
 
   def votes_params
-    params.permit(:petition_id)
+    params.require(:vote).permit(:user_id, :petition_id)
   end
 end

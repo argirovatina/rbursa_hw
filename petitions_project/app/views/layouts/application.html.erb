@@ -9,6 +9,23 @@
 <body>
 
 <%= render partial: "header" %>
+
+<div class="row">
+  <div class="col-xs-offset-2 col-xs-4">
+
+<% flash.each do |name, msg| %>
+    <div class="alert alert-success"><%= msg %></div>
+<% end %>
+
+<% if @petition %>
+    <% if @petition.errors.any? %>
+        <div class="alert alert-danger"> Произошла ошибка в петиции </div>
+    <% end %>
+<% end %>
+
+  </div>
+</div>
+
 <%= yield %>
 <%= render partial: "general_menu" %>
 <%= render partial: "footer" %>

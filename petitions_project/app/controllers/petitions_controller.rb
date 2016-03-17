@@ -38,8 +38,11 @@ class PetitionsController < ApplicationController
 
   def update
     @petition = current_user.petitions.find(params[:id])
-    @petition.update(petition_params)
+    if @petition.update(petition_params)
     redirect_to @petition, notice: 'Петиция обновлена'
+    else
+      render 'edit'
+    end
   end
 
   def destroy
