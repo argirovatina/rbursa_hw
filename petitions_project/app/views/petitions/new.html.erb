@@ -4,10 +4,6 @@
 
   <%= form_for :petition, url: petitions_path do |f| %>
 
-      <% if @petition.errors.any? %>
-              <div class="alert alert-danger"> Невозможно создать петицию неавторизованному пользователю </div>
-      <% end %>
-
       <div class="form-group">
         <div><%= f.label :Название %></div>
         <%= f.text_field :title %>

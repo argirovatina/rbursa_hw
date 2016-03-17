@@ -7,9 +7,10 @@
       <div><span style="color:grey"><%= @petition.created_at.strftime("%d/%m/%Y %H:%M") %></span></div>
 
       <%= @petition.text %>
-      <div><span>Голосов: </span><%= '@petition.votes.count' %></div>
+      <div><span>Голосов: </span><%= @petition.votes.count %></div>
      <div>
-       <%= button_to 'Поддержать', votes_path({ petition_id: @petition.id })%>
+       <%= button_to 'Поддержать', votes_path, method: :post%>
      </div>
       </div>
   <% end %>
+
