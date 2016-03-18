@@ -2,15 +2,17 @@
 <div class="col-md-7">
   <h1>Петиция</h1>
 
-  <%= form_for :petition, url: petitions_path do |f| %>
-      <%= @petition.title %>
-      <div><span style="color:grey"><%= @petition.created_at.strftime("%d/%m/%Y %H:%M") %></span></div>
+  <%= @petition.title %>
+  <div><span style="color:grey"><%= @petition.created_at.strftime("%d/%m/%Y %H:%M") %></span></div>
+  <%= @petition.text %>
 
-      <%= @petition.text %>
-      <div><span>Голосов: </span><%= @petition.votes.count %></div>
-     <div>
-       <%= button_to 'Поддержать', votes_path({petition_id: @petition.id}) %>
-     </div>
-      </div>
-  <% end %>
+    <div><span>Голосов: </span><%= @petition.votes.count %></div>
+    <div>
+      <% if @petition.voted_by?(current_user) %>
+            Вы уже проголосовали за данную петицию
+          <% else %>
+            <%= button_to('Поддержать', votes_path({ petition_id: @petition.id }), class: "btn btn-primary" ) %>
+          <% end %>
+    </div>
+  </div>
 

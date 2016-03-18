@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   resources :sessions
   resources :users
   resources :petitions
-  resources :votes
+  resources :votes, only: :create
 
 end

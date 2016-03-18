@@ -13,9 +13,7 @@
 <div class="row">
   <div class="col-xs-offset-2 col-xs-4">
 
-<% flash.each do |name, msg| %>
-    <div class="alert alert-success"><%= msg %></div>
-<% end %>
+    <%= bootstrap_flash %>
 
 <% if @petition %>
     <% if @petition.errors.any? %>
