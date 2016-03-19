@@ -1,7 +1,5 @@
+require 'Date'
 class PetitionsController < ApplicationController
-
-  EXPIRATION_PERIOD = 30
-  #scope :created_before, ->(time) { where("created_at < ?", time) }
 
   def index
     if params[:my] && current_user

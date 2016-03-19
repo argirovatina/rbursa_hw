@@ -5,11 +5,18 @@ class VotesController < ApplicationController
   def create
     vote = current_user.votes.create(permitted_params)
     redirect_to vote.petition, notice: 'Спасибо! Ваш голос учтен'
-    # if @vote.count == MAX_VOTES
-    #   UserMailer.winning_petition(@petition).deliver_now
-    # else
-    #   UserMailer.loosing_petition(@petition).deliver_now
-    # end
+
+    @petition = Petition.find(params[:petition_id])
+    if @petition.votes.count == MAX_VOTES
+      UserMailer.winning_petition(@petition).deliver_now
+      UserMailer.email_to_admin(@petition).deliver_now
+    else
+      UserMailer.loosing_petition(@petition).deliver_now
+    end
+  end
+
+  def max_votes_count
+    @max_votes = MAX_VOTES
   end
 
   def permitted_params
