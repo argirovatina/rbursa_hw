@@ -2,15 +2,15 @@
 <div class="col-md-7">
   <h1>Петиция</h1>
 
-  <%= form_for :petition, url: petitions_path do |f| %>
+  
       <%= @petition.title %>
       <div><span style="color:grey"><%= @petition.created_at.strftime("%d/%m/%Y %H:%M") %></span></div>
 
       <%= @petition.text %>
       <div><span>Голосов: </span><%= @petition.votes.count %></div>
      <div>
-       <%= button_to 'Поддержать', votes_path, method: :post%>
+       <%= button_to 'Поддержать', votes_path({ petition_id: @petition.id, user_id: current_user.id }), method: :post%>
      </div>
       </div>
-  <% end %>
+
 
