@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
 
-  MAX_VOTES = 1
+  MAX_VOTES = 100
 
   def create
     vote = current_user.votes.create(permitted_params)
