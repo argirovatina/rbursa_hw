@@ -1,3 +1,4 @@
+require 'Date'
 class Petition < ActiveRecord::Base
 
   EXPIRATION_PERIOD = 30
@@ -9,17 +10,16 @@ class Petition < ActiveRecord::Base
 
   validates :title,  presence: true, length: { maximum: 256 }
   validates :text,  presence: true, length: { maximum: 2000 }
-  validate :expired?, on: :create
+  validate :expired?
 
-  scope :created_before, ->(time) { where("created_at < #{Time.now - EXPIRATION_PERIOD}", time) }
+  scope :created_before, -> { where("created_at < ?", "#{Date.today - EXPIRATION_PERIOD}") }
 
   def voted_by?(current_user)
     votes.where(user_id: current_user.id).any?
   end
 
   def expired?
-    @petition = Petition.find(params[:petition_id])
-    Petition.created_before(@petition.created_at)
+    Petition.created_before.include? self
   end
 
 end

@@ -10,6 +10,8 @@
     <div>
       <% if @petition.voted_by?(current_user) %>
             Вы уже проголосовали за данную петицию
+          <% elsif @petition.user == current_user || @petition.expired? %>
+
           <% else %>
             <%= button_to('Поддержать', votes_path({ petition_id: @petition.id }), class: "btn btn-primary" ) %>
           <% end %>

@@ -18,7 +18,6 @@ class UserMailer < ApplicationMailer
   def preparing_params(petition)
     @petition = petition
     @user = petition.user
-    @max_votes = VotesController.new.max_votes_count
     @votes = petition.votes
   end
 
