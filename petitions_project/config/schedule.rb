@@ -1,6 +1,6 @@
 set :output, "/log/cron_log.log"
 
-every 30.days do
+every 1.minutes do
   rake 'voting:process_old'
 end
 
