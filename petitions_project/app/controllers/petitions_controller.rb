@@ -1,3 +1,4 @@
+require 'Date'
 class PetitionsController < ApplicationController
 
   def index
